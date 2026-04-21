@@ -13,7 +13,7 @@ def get_csv_datas(path: str) -> list:
     le chemin du fichier CSV en paramètre"""
     data = []
     if os.path.exists(path):
-        with open(path, 'r', encoding='utf-8') as csv_file:
+        with open(path, 'r', encoding='utf-8', newline='') as csv_file:
             reader = csv.DictReader(csv_file)
             data = list(reader)
     return data
