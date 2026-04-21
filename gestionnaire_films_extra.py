@@ -1,11 +1,13 @@
 import csv
 import os
+import json
 
 ERROR_MESSAGE_INVALID = "Erreur : entrée invalide."
 ERROR_MESSAGE_NOT_EXISTS = "Erreur : Fichier inexistant ou pas encore créé"
 ERROR_MESSAGE_EMPTY = "Erreur : La liste de films est vide !"
 ERROR_MESSAGE_NOT_FOUND = "Erreur : entrée introuvable."
 FILE_NAME = "movies.csv"
+JSON_FILE_NAME = "movies.json"
 FIELD_NAMES = ["title","release_year","genre","is_seen"]
 
 def get_csv_datas(path: str) -> list:
@@ -123,6 +125,43 @@ def display_menu():
     print("Marquer un film comme vu : marquer")
     print("Quitter : sortir\n")
 
+def export_json(csv_path: str, json_path: str):
+    film_list = get_csv_datas(csv_path)
+    with open(json_path, 'w', encoding='utf-8') as json_file:
+        json.dump(film_list, json_file, ensure_ascii= False, indent= 2)
+
+def save_stats_in_json(csv_path: str, json_path: str):
+    film_list = get_csv_datas(csv_path)
+    nb_film = len(film_list)
+    nb_viewed = 0
+    nb_not_viewed = 0
+    genre_list = []
+    for film in film_list:
+        genre_list.append(film["genre"])
+        if film["is_seen"] == "True":
+            nb_viewed += 1
+        else:
+            nb_not_viewed += 1
+    single_genres = set(genre_list)
+    genre_count =[]
+    for unique_genre in single_genres:
+        genre_score = genre_list.count(unique_genre)
+        genre_count.append({"genre": unique_genre, "score": genre_score})
+
+    def get_score(item: dict) -> int:
+        return item["score"]
+
+    sorted_genres = sorted(genre_count, key=get_score, reverse=True)
+    json_stats = {
+        "total_film_number": nb_film,
+        "nb_viewed_films": nb_viewed,
+        "nb_not_viewed": nb_not_viewed,
+        "top_genres": sorted_genres[0:2]
+    }
+    with open(json_path, 'w', encoding='utf-8') as json_file:
+        json.dump(json_stats, json_file, ensure_ascii= False, indent= 2)
+
+
 def menu():
     """Affiche le menu principal et exécute les demandes de l'utilisateur."""
     print("Bienvenue dans le gestionnaire de films\n")
@@ -132,14 +171,20 @@ def menu():
         match action_choice:
             case "ajouter":
                 add_movie(FILE_NAME)
+                export_json(FILE_NAME, JSON_FILE_NAME)
+                save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
             case "liste":
                 list_movies(FILE_NAME)
             case "rechercher":
                 display_search_result(FILE_NAME)
             case "supprimer":
                 delete_movie(FILE_NAME)
+                export_json(FILE_NAME, JSON_FILE_NAME)
+                save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
             case "marquer":
                 mark_movie_as_seen(FILE_NAME)
+                export_json(FILE_NAME, JSON_FILE_NAME)
+                save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
             case "sortir":
                 exit()
             case _:
