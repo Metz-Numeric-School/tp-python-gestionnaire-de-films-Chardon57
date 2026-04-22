@@ -185,6 +185,7 @@ def menu():
                     ("Rechercher un film", "rechercher"),
                     ("Supprimer un film", "supprimer"),
                     ("Marquer un film comme vu", "marquer"),
+                    ("Export et statistiques en JSON", "json_export")
                     ("Quitter", "sortir")
                 ]
             )
@@ -195,18 +196,15 @@ def menu():
         match action_choice["menu"]:
             case "ajouter":
                 add_movie(FILE_NAME)
-                export_json(FILE_NAME, JSON_FILE_NAME)
-                save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
             case "liste":
                 list_movies(FILE_NAME)
             case "rechercher":
                 display_search_result(FILE_NAME)
             case "supprimer":
                 delete_movie(FILE_NAME)
-                export_json(FILE_NAME, JSON_FILE_NAME)
-                save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
             case "marquer":
                 mark_movie_as_seen(FILE_NAME)
+            case "json_export":
                 export_json(FILE_NAME, JSON_FILE_NAME)
                 save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
             case "sortir":
