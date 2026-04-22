@@ -156,7 +156,7 @@ def save_stats_in_json(csv_path: str, json_path: str):
         "total_film_number": nb_film,
         "nb_viewed_films": nb_viewed,
         "nb_not_viewed": nb_not_viewed,
-        "top_genres": sorted_genres[0:2]
+        "top_genres": sorted_genres[0:3]
     }
     with open(json_path, 'w', encoding='utf-8') as json_file:
         json.dump(json_stats, json_file, ensure_ascii= False, indent= 2)
