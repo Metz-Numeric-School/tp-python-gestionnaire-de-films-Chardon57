@@ -1,19 +1,140 @@
-{
-  "total_film_number": 22,
-  "nb_viewed_films": 17,
-  "nb_not_viewed": 5,
-  "top_genres": [
-    {
-      "genre": "sf",
-      "score": 10
-    },
-    {
-      "genre": "drame",
-      "score": 3
-    },
-    {
-      "genre": "thriller",
-      "score": 2
-    }
-  ]
-}
+[
+  {
+    "title": "Inception",
+    "release_year": "2010",
+    "genre": "sf",
+    "is_seen": "True"
+  },
+  {
+    "title": "Titanic",
+    "release_year": "1997",
+    "genre": "romance",
+    "is_seen": "True"
+  },
+  {
+    "title": "Terminator",
+    "release_year": "1984",
+    "genre": "sf",
+    "is_seen": "True"
+  },
+  {
+    "title": "Star Wars",
+    "release_year": "1977",
+    "genre": "sf",
+    "is_seen": "True"
+  },
+  {
+    "title": "Alien",
+    "release_year": "1978",
+    "genre": "horreur",
+    "is_seen": "True"
+  },
+  {
+    "title": "The matrix",
+    "release_year": "1999",
+    "genre": "sf",
+    "is_seen": "True"
+  },
+  {
+    "title": "Avatar",
+    "release_year": "2009",
+    "genre": "sf",
+    "is_seen": "False"
+  },
+  {
+    "title": "Gladiator",
+    "release_year": "2000",
+    "genre": "action",
+    "is_seen": "True"
+  },
+  {
+    "title": "The godfather",
+    "release_year": "1972",
+    "genre": "crime",
+    "is_seen": "True"
+  },
+  {
+    "title": "Pulp fiction",
+    "release_year": "1994",
+    "genre": "crime",
+    "is_seen": "True"
+  },
+  {
+    "title": "Jurassic Park",
+    "release_year": "1993",
+    "genre": "sf",
+    "is_seen": "True"
+  },
+  {
+    "title": "Interstellar",
+    "release_year": "2014",
+    "genre": "sf",
+    "is_seen": "False"
+  },
+  {
+    "title": "The lion king",
+    "release_year": "1994",
+    "genre": "animation",
+    "is_seen": "True"
+  },
+  {
+    "title": "Forrest Gump",
+    "release_year": "1994",
+    "genre": "drame",
+    "is_seen": "True"
+  },
+  {
+    "title": "The dark knight",
+    "release_year": "2008",
+    "genre": "action",
+    "is_seen": "True"
+  },
+  {
+    "title": "Fight Club",
+    "release_year": "1999",
+    "genre": "drame",
+    "is_seen": "True"
+  },
+  {
+    "title": "Se7en",
+    "release_year": "1995",
+    "genre": "thriller",
+    "is_seen": "True"
+  },
+  {
+    "title": "The prestige",
+    "release_year": "2006",
+    "genre": "sf",
+    "is_seen": "False"
+  },
+  {
+    "title": "Whiplash",
+    "release_year": "2014",
+    "genre": "drame",
+    "is_seen": "True"
+  },
+  {
+    "title": "Parasite",
+    "release_year": "2019",
+    "genre": "thriller",
+    "is_seen": "False"
+  },
+  {
+    "title": "Star Trek",
+    "release_year": "2009",
+    "genre": "sf",
+    "is_seen": "True"
+  },
+  {
+    "title": "iRobot",
+    "release_year": "2004",
+    "genre": "sf",
+    "is_seen": "False"
+  },
+  {
+    "title": "Seul sur Mars",
+    "release_year": "2015",
+    "genre": "sf",
+    "is_seen": "Oui"
+  }
+]

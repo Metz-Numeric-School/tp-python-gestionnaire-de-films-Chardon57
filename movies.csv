@@ -1,23 +1,24 @@
 title,release_year,genre,is_seen
-inception,2010,sf,True
-titanic,1997,romance,True
-terminator,1984,sf,True
-star wars,1977,sf,True
-alien,1978,horreur,True
-the matrix,1999,sf,True
-avatar,2009,sf,False
-gladiator,2000,action,True
-the godfather,1972,crime,True
-pulp fiction,1994,crime,True
-jurassic park,1993,sf,True
-interstellar,2014,sf,False
-the lion king,1994,animation,True
-forrest gump,1994,drame,True
-the dark knight,2008,action,True
-fight club,1999,drame,True
-se7en,1995,thriller,True
-the prestige,2006,sf,False
-whiplash,2014,drame,True
-parasite,2019,thriller,False
-star trek,2009,sf,True
-irobot,2004,sf,False
+Inception,2010,sf,True
+Titanic,1997,romance,True
+Terminator,1984,sf,True
+Star Wars,1977,sf,True
+Alien,1978,horreur,True
+The matrix,1999,sf,True
+Avatar,2009,sf,False
+Gladiator,2000,action,True
+The godfather,1972,crime,True
+Pulp fiction,1994,crime,True
+Jurassic Park,1993,sf,True
+Interstellar,2014,sf,False
+The lion king,1994,animation,True
+Forrest Gump,1994,drame,True
+The dark knight,2008,action,True
+Fight Club,1999,drame,True
+Se7en,1995,thriller,True
+The prestige,2006,sf,False
+Whiplash,2014,drame,True
+Parasite,2019,thriller,False
+Star Trek,2009,sf,True
+iRobot,2004,sf,False
+Seul sur Mars,2015,sf,Oui

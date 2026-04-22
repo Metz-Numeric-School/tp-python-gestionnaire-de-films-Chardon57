@@ -8,6 +8,7 @@ ERROR_MESSAGE_EMPTY = "Erreur : La liste de films est vide !"
 ERROR_MESSAGE_NOT_FOUND = "Erreur : entrée introuvable."
 FILE_NAME = "movies.csv"
 JSON_FILE_NAME = "movies.json"
+JSON_STATS = "stats.json"
 FIELD_NAMES = ["title","release_year","genre","is_seen"]
 
 def get_csv_datas(path: str) -> list:
@@ -184,7 +185,7 @@ def menu():
             case "marquer":
                 mark_movie_as_seen(FILE_NAME)
                 export_json(FILE_NAME, JSON_FILE_NAME)
-                save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
+                save_stats_in_json(FILE_NAME, JSON_STATS)
             case "sortir":
                 exit()
             case _:

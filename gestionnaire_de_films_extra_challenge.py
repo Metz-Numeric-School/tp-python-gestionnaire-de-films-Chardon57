@@ -16,6 +16,7 @@ ERROR_MESSAGE_EMPTY = "Erreur : La liste de films est vide !"
 ERROR_MESSAGE_NOT_FOUND = "Erreur : entrée introuvable."
 FILE_NAME = "movies.csv"
 JSON_FILE_NAME = "movies.json"
+JSON_STATS = "stats.json"
 FIELD_NAMES = ["title","release_year","genre","is_seen"]
 
 def get_csv_datas(path: str) -> list:
@@ -68,21 +69,29 @@ def add_movie(path: str):
     sera créé, sinon la nouvelle entrée sera ajoutée. Reçoit en paramètre le chemin 
     du fichier à modifier"""
     film_list = get_csv_datas(path)
-    title = input("Entrez le titre du film à ajouter : ").lower().strip()
-    while True:
-        release_year = input(f"En quelle année \"{title.capitalize()}\" est sorti ? ")
-        if release_year.isdigit() and int(release_year) > 1000:
-            release_year = int(release_year)
-            break
-        print(ERROR_MESSAGE_INVALID)
-    genre = input(f"Quel est le genre de \"{title.capitalize()} ({release_year})\" ? ").lower().strip()
-    is_seen = input(f"Avez vous visionné \"{title.capitalize()} ({release_year})\" (o/n) ? ") == "o"
-    new_entry = {
-        "title": title,
-        "release_year": release_year,
-        "genre": genre,
-        "is_seen": is_seen
-    }
+    def year_validation(answers, current):
+        if not current.isdigit() or int(current) < 1000:
+            raise inquirer.errors.ValidationError("", reason="Entrez une année valide")
+
+        return True
+
+    questions = [
+        inquirer.Text("title", message="Entrez le titre du film"),
+        inquirer.Text(
+            "release_year",
+            message="En quelle année \"{title}\" est sorti ? ",
+            validate=year_validation,
+        ),
+        inquirer.Text("genre", message="Quel est le genre de \"{title}\" ? "),
+        inquirer.List(name="is_seen",
+                    message="Avez vous visionné \"{title}\" ? ",
+                    choices=["Oui","Non"],
+                    default="Non"
+                )
+        ]
+
+
+    new_entry = inquirer.prompt(questions, theme=GreenPassion())
     film_list.append(new_entry)
     write_csv_datas(path, film_list)
     print("Entrée ajoutée.\n")
@@ -94,7 +103,7 @@ def search_movie(path: str, search_prompt:str) -> dict | None:
     film_list = get_csv_datas(path)
     if len(film_list) > 0:
         for film in film_list:
-            if film["title"] == search_prompt.lower().strip():
+            if film["title"].lower().strip() == search_prompt.lower().strip():
                 return film
     return None
 
@@ -107,7 +116,7 @@ def display_search_result(path: str):
         print(ERROR_MESSAGE_NOT_FOUND)
     else:
         is_viewed_txt = "Oui" if result["is_seen"] == "True" else "Non"
-        title_panel = Panel(Text(f"{result["title"]}".capitalize(), justify="left"), width=30)
+        title_panel = Panel(Text(f"{result["title"]}", justify="left"), width=30)
         details_panel = Panel(
             Text(
                 f"Anné de sortie : {result["release_year"]}\nGenre : {result["genre"]}\nVisionné : {is_viewed_txt}",
@@ -219,7 +228,7 @@ def menu():
                 mark_movie_as_seen(FILE_NAME)
             case "json_export":
                 export_json(FILE_NAME, JSON_FILE_NAME)
-                save_stats_in_json(FILE_NAME, JSON_FILE_NAME)
+                save_stats_in_json(FILE_NAME, JSON_STATS)
             case "sortir":
                 exit()
             case _:
