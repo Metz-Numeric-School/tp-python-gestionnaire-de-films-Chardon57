@@ -5,6 +5,10 @@ import inquirer, rich
 from inquirer.themes import GreenPassion
 from rich.console import Console
 from rich.table import Table
+from rich import print
+from rich.panel import Panel
+from rich.text import Text
+
 
 ERROR_MESSAGE_INVALID = "Erreur : entrée invalide."
 ERROR_MESSAGE_NOT_EXISTS = "Erreur : Fichier inexistant ou pas encore créé"
@@ -102,7 +106,16 @@ def display_search_result(path: str):
     if result is None:
         print(ERROR_MESSAGE_NOT_FOUND)
     else:
-        print(f"Titre : {result["title"]}\nAnnée : {result["release_year"]}\nGenre : {result["genre"]}\nVisionné : {"Oui" if result["is_seen"] == "True" else "Non"}")
+        is_viewed_txt = "Oui" if result["is_seen"] == "True" else "Non"
+        title_panel = Panel(Text(f"{result["title"]}".capitalize(), justify="left"), width=30)
+        details_panel = Panel(
+            Text(
+                f"Anné de sortie : {result["release_year"]}\nGenre : {result["genre"]}\nVisionné : {is_viewed_txt}",
+                justify="left"
+                ),
+            width=30)
+        print(title_panel)
+        print(details_panel)
 
 def delete_movie(path: str):
     """Recherche le film demandé puis le supprime de la liste des films
@@ -185,7 +198,7 @@ def menu():
                     ("Rechercher un film", "rechercher"),
                     ("Supprimer un film", "supprimer"),
                     ("Marquer un film comme vu", "marquer"),
-                    ("Export et statistiques en JSON", "json_export")
+                    ("Export et statistiques en JSON", "json_export"),
                     ("Quitter", "sortir")
                 ]
             )
