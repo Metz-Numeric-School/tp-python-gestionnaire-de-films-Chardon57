@@ -190,4 +190,5 @@ def menu():
             case _:
                 print(ERROR_MESSAGE_INVALID)
 
-menu()
+if __name__ == "__main__":
+    menu()
