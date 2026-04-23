@@ -1,0 +1,24 @@
+title,release_year,genre,is_seen
+Inception,2010,sf,True
+Titanic,1997,romance,True
+Terminator,1984,sf,True
+Star Wars,1977,sf,True
+Alien,1978,horreur,True
+The matrix,1999,sf,True
+Avatar,2009,sf,False
+Gladiator,2000,action,True
+The godfather,1972,crime,True
+Pulp fiction,1994,crime,True
+Jurassic Park,1993,sf,True
+Interstellar,2014,sf,False
+The lion king,1994,animation,True
+Forrest Gump,1994,drame,True
+The dark knight,2008,action,True
+Fight Club,1999,drame,True
+Se7en,1995,thriller,True
+The prestige,2006,sf,False
+Whiplash,2014,drame,True
+Parasite,2019,thriller,False
+Star Trek,2009,sf,True
+iRobot,2004,sf,False
+Seul sur Mars,2015,sf,True
