@@ -14,7 +14,7 @@ ERROR_MESSAGE_INVALID = "Erreur : entrée invalide."
 ERROR_MESSAGE_NOT_EXISTS = "Erreur : Fichier inexistant ou pas encore créé"
 ERROR_MESSAGE_EMPTY = "Erreur : La liste de films est vide !"
 ERROR_MESSAGE_NOT_FOUND = "Erreur : entrée introuvable."
-FILE_NAME = "movies.csv"
+FILE_NAME = "movies_extra_challenge.csv"
 JSON_FILE_NAME = "movies.json"
 JSON_STATS = "stats.json"
 FIELD_NAMES = ["title","release_year","genre","is_seen"]
@@ -40,6 +40,7 @@ def write_csv_datas(path: str, rows: list):
 def list_movies(path: str):
     """Affiche le contenu de la collection de films (fichier CSV). REçoit le chemin
     du fichier en paramètre. Si le fichier n'existe pas, affiche un message d'erreur."""
+    os.system('cls' if os.name == 'nt' else 'clear')
     film_list = get_csv_datas(path)
     if len(film_list) > 0:
         table = Table(title="Liste des films")
@@ -55,7 +56,7 @@ def list_movies(path: str):
                 f"{film["title"]}",
                 f"{film["release_year"]}",
                 f"{film["genre"]}",
-                f"{"Oui" if film["is_seen"] == "True" else "Non"}"
+                f"{film["is_seen"]}"
             )
 
         console = Console()
@@ -111,15 +112,15 @@ def display_search_result(path: str):
     """Affiche le résultat de la recherche d'un film. Si le film n'est pas
     trouvé, affiche un message d'erreur adapté"""
     search_pattern = input("Quel film recherchez vous : ")
+    os.system('cls' if os.name == 'nt' else 'clear')
     result = search_movie(path, search_pattern)
     if result is None:
         print(ERROR_MESSAGE_NOT_FOUND)
     else:
-        is_viewed_txt = "Oui" if result["is_seen"] == "True" else "Non"
         title_panel = Panel(Text(f"{result["title"]}", justify="left"), width=30)
         details_panel = Panel(
             Text(
-                f"Anné de sortie : {result["release_year"]}\nGenre : {result["genre"]}\nVisionné : {is_viewed_txt}",
+                f"Anné de sortie : {result["release_year"]}\nGenre : {result["genre"]}\nVisionné : {result["is_seen"]}",
                 justify="left"
                 ),
             width=30)
@@ -130,30 +131,51 @@ def delete_movie(path: str):
     """Recherche le film demandé puis le supprime de la liste des films
     avant d'écraser le CSV avec le nouveau contenu. **Le fichier CSV précédent
     est remplacé !**"""
-    movie_to_del = input("Quel film voulez vous supprimer ? ")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Quel film voulez vous supprimer ?\n")
     film_list = get_csv_datas(path)
     
-    del_entry = search_movie(path, movie_to_del)
+    selected_film, is_full = get_selected_film(film_list)
+    del_entry = search_movie(path, selected_film["selected"])
     
-    if del_entry is None:
-        print(ERROR_MESSAGE_NOT_FOUND)
     
     film_list.remove(del_entry)
     write_csv_datas(path, film_list)
     
+def get_selected_film(movie_list: list) -> tuple:
+    """Affiche un menu de sélection avec l'intégralité des films et renvoie
+    la sélection de l'utilisateur sour forme de *tuple* contenant la sélection et 
+    un booléen indiquent si la liste est vide ou pas. Reçoit la liste de films."""
+    film_menu_list = []
+    for item in movie_list:
+        film_menu_list.append(f"{item["title"]}")
+    if len(movie_list) > 0:
+        options = [
+                inquirer.List(
+                    name="selected",
+                    message="",
+                    choices=film_menu_list
+                )
+            ]
+        
+        selection = inquirer.prompt(options, theme=GreenPassion())
+    return selection, len(movie_list) > 0
 
 def mark_movie_as_seen(path: str):
     """Recherche le film demandé puis modifie la clé *is_seen* en la passant
     de *False* à *True*"""
-    seen_movie = input("Quel film avez vous regardé ? ")
+    # seen_movie = input("Quel film avez vous regardé ? ")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Quel film avez vous visionné ?\n")
     film_list = get_csv_datas(path)
-    if len(film_list) > 0:
+    selected_film, is_full = get_selected_film(film_list)
+    if is_full:
         for film in film_list:
-            if film["title"] == seen_movie.lower().strip():
-               film["is_seen"] = True
-               write_csv_datas(path, film_list)
-               break
-        print(ERROR_MESSAGE_NOT_FOUND)
+            if film["title"] == selected_film["selected"]:
+                film["is_seen"] = "Oui"
+                write_csv_datas(path, film_list)
+                break
+        return
     print(ERROR_MESSAGE_EMPTY)
         
 def export_json(csv_path: str, json_path: str):

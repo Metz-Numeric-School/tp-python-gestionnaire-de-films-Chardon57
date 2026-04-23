@@ -1,7 +1,7 @@
 {
   "total_film_number": 23,
-  "nb_viewed_films": 17,
-  "nb_not_viewed": 6,
+  "nb_viewed_films": 0,
+  "nb_not_viewed": 23,
   "top_genres": [
     {
       "genre": "sf",
@@ -12,7 +12,7 @@
       "score": 3
     },
     {
-      "genre": "thriller",
+      "genre": "crime",
       "score": 2
     }
   ]
